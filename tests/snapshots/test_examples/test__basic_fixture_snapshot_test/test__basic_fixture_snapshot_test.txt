@@ -1,0 +1,3 @@
+snippet.py
+  snippet.py:3:9 - error: Operator "+" not supported for types "int" and "str"
+    Operator "+" not supported for types "int" and "str" (reportGeneralTypeIssues)
