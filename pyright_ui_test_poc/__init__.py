@@ -1,0 +1,2 @@
+class SampleLibraryClass:
+    pass

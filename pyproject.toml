@@ -1,0 +1,71 @@
+[tool.poetry]
+name = "pyright-ui-test-poc"
+version = "0.1.0"
+description = ""
+authors = ["Kaelin Laundry <wasabifan@outlook.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+
+[tool.poetry.dev-dependencies]
+pytest = "^6.2.4"
+flakehell = "^0.9.0"
+flake8-isort = "^4.0.0"
+flake8-black = "^0.2.3"
+pytest-snapshot = "^0.6.1"
+
+[tool.flakehell]
+exclude = [
+    "README.md",
+    ".venv",
+    ".cache",
+    ".git",
+    "__pycache__",
+    ".pytest_cache",
+    ".vscode",
+]
+format = "colored"
+# Note: line length is also specified in tasks.py and other tools below
+max_line_length = 100
+show_source = true
+extended_default_ignore = []
+
+[tool.flakehell.plugins]
+pyflakes = ["+*"]
+pycodestyle = [
+    "+*",
+    "-W503" # disable "line break before binary operator": no longer part of PEP8
+]
+"flake8-*" = ["+*"]
+
+[tool.isort]
+skip = [".venv", ".cache"]
+profile = "black"
+line_length = 100
+multi_line_output = 3
+
+[tool.black]
+line-length = 100
+
+[tool.poetry.scripts]
+test = "tasks:test"
+update-snapshots = "tasks:update_snapshots"
+lint = "tasks:lint"
+format = "tasks:format"
+typecheck = "tasks:typecheck"
+
+[tool.pyright]
+exclude = [
+    ".venv",
+]
+pythonVersion = "3.8"
+typeCheckingMode  = "basic"
+
+[tool.pytest.ini_options]
+markers = [
+    "ui_test: tests checking code behavior under the Pyright type-checker, which require Pyright to be installed globally",
+]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

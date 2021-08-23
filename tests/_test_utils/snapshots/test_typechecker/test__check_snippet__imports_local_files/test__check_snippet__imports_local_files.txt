@@ -1,0 +1,2 @@
+snippet.py
+  snippet.py:3:17 - info: Type of "SampleLibraryClass" is "Type[SampleLibraryClass]"

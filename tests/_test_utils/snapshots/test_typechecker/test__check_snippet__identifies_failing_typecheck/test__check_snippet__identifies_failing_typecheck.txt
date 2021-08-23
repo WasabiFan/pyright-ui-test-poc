@@ -1,0 +1,5 @@
+snippet.py
+  snippet.py:3:12 - error: Expression of type "int" cannot be assigned to return type "str"
+    "int" is incompatible with "str" (reportGeneralTypeIssues)
+  snippet.py:4:14 - error: Expression of type "str" cannot be assigned to declared type "int"
+    "str" is incompatible with "int" (reportGeneralTypeIssues)
