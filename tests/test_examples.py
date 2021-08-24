@@ -1,5 +1,8 @@
-# The _test_utils/ directory includes tests which exercise all functionality of the typechecking
-# utilities. The below are intended to give a sampling of the overall behavior and usage.
+"""
+The _test_utils/ directory includes tests which exercise all functionality of the typechecking
+utilities. The below are intended to give a sampling of the overall behavior and usage with comments
+explaining each example.
+"""
 
 import pytest
 from pytest_snapshot.plugin import Snapshot  # type: ignore
@@ -16,6 +19,10 @@ from tests._test_utils.typechecker_ui_testing import (
 # desired
 @pytest.mark.ui_test  # or, use the alias "@ui_test"
 def test__manual_typechecker_invocation():
+    """
+    A simple typechecker test, using the low-level API. Runs Pyright against code with bad types and
+    asserts that Pyright picks up the error.
+    """
     # Given
     context = TypecheckContext(PROJECT_DEFAULT_PYRIGHT_CONFIG)
     code = """
@@ -41,7 +48,7 @@ def test__manual_typechecker_invocation():
 def test__manual_snapshot_test(snapshot: Snapshot, request: pytest.FixtureRequest):
     """
     This test is the same as above, but uses pytest-snapshot to validate the entirety of Pyright's
-    output.
+    output rather than just a hard-coded substring.
     """
 
     # Given
@@ -64,7 +71,7 @@ def test__basic_fixture_snapshot_test(
     typecheck_snapshot: TypecheckSnapshotFixture,
 ):
     """
-    A further equivalent way to write the above test, now using the provided pytest "fixture".
+    A fully equivalent way to write the above test, now using the provided pytest "fixture".
 
     This is the approach I actually suggest using, rather than any of the above.
     """
@@ -82,6 +89,8 @@ def test__passing_fixture_snapshot_test(
 ):
     """
     The fixture provides both "assert_passing_typecheck" and "assert_failing_typecheck" helpers.
+    Both snapshot-test the Pyright output, but they will only pass if the resultant status code of
+    the overall check was as specified.
     """
     typecheck_snapshot.assert_passing_typecheck(
         """
@@ -112,7 +121,8 @@ def test__reveal_type(
     typecheck_snapshot: TypecheckSnapshotFixture,
 ):
     """
-    "reveal_type" works as usual, so you can test that inferred/implied types are as intended.
+    "reveal_type" works as usual, so you can test that inferred/implied types are as intended. The
+    below is a simple/contrived example.
     """
     typecheck_snapshot.assert_passing_typecheck(
         """
